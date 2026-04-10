@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daily Standup Writer</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 500;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: none;
+        }
+
+        select, button {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            margin-top: 10px;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+
+        .result-box {
+            margin-top: 25px;
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 10px;
+            white-space: pre-wrap;
+        }
+
+        .copy-btn {
+            margin-top: 10px;
+            background: #48bb78;
+        }
+
+        .copy-btn:hover {
+            background: #38a169;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🧠 Daily Standup Writer</h1>
+
+    <form action="/generate" method="post">
+
+        <label>Yesterday</label>
+        <textarea name="yesterday" placeholder="e.g. fixed login bug, worked on API..." required></textarea>
+
+        <label>Today</label>
+        <textarea name="today" placeholder="e.g. build dashboard UI..." required></textarea>
+
+        <label>Blockers</label>
+        <textarea name="blockers" placeholder="e.g. waiting for API / none"></textarea>
+
+        <label>Tone</label>
+        <select name="tone">
+            <option>Professional</option>
+            <option>Casual</option>
+            <option>Scrum-style</option>
+        </select>
+
+        <button type="submit">Generate Standup</button>
+    </form>
+
+    {% if result %}
+        <div class="result-box" id="result">
+            {{ result }}
+        </div>
+
+        <button class="copy-btn" onclick="copyText()">Copy to Clipboard</button>
+    {% endif %}
+</div>
+
+<script>
+function copyText() {
+    const text = document.getElementById("result").innerText;
+    navigator.clipboard.writeText(text);
+    alert("Copied to clipboard!");
+}
+</script>
+
+</body>
+</html>
